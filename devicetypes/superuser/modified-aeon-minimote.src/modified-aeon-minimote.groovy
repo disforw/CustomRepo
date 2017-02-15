@@ -1,5 +1,13 @@
+/*
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 metadata {
-	// Automatically generated. Make future change here.
 	definition (name: "Modified - Aeon Minimote", namespace: "", author: "disforw") {
 		capability "Actuator"
 		capability "Button"
