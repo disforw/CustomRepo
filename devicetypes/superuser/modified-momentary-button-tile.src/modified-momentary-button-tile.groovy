@@ -12,7 +12,7 @@
  *
  */
 metadata {
-	definition (name: "Modified - Momentary Button Tile", namespace: "", author: "SmartThings") {
+	definition (name: "Modified - Momentary Button Tile", namespace: "", author: "disforw") {
 		capability "Actuator"
         capability "Button"
 		capability "Switch"
