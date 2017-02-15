@@ -9,6 +9,7 @@
 * Version History
 * ---------------
 * 2017-01-07 Initial Re-Code
+* 2017-01-11 Combined the water and temperature tiles in to one multiAttributeTile
 * 2017-02-15 Added proper sendEvent to trigger other apps for water, temperature and battery
 
 */
