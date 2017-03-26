@@ -11,6 +11,7 @@
 * 2017-01-07 Initial Re-Code
 * 2017-01-11 Combined the water and temperature tiles in to one multiAttributeTile
 * 2017-02-15 Added proper sendEvent to trigger other apps for water, temperature and battery
+* 2017-03-25 Moved temp to its own tile, moved batt to multi-tile
 
 */
 
@@ -38,7 +39,7 @@ metadata {
 			status "battery ${i}%": new physicalgraph.zwave.Zwave().batteryV1.batteryReport(batteryLevel: i).incomingMessage()
 		}
 	}
-	tiles {
+	tiles(scale: 2) {
 		multiAttributeTile(name:"main", type: "lighting", width: 4, height: 2, canChangeIcon: true, decoration: "flat"){
         	tileAttribute ("device.main", key: "PRIMARY_CONTROL") {
             attributeState "dry", label: "NORMAL", icon:"st.Home.home1", backgroundColor:"#ffffff"
@@ -46,22 +47,31 @@ metadata {
             attributeState "overheated", label: "OVERHEATED", icon:"st.alarm.temperature.overheat", backgroundColor:"#F80000"
             attributeState "wet", label: "WET", icon:"st.alarm.water.wet", backgroundColor:"#53a7c0"
             }
-            tileAttribute ("device.temperature", key: "SECONDARY_CONTROL") {
-            attributeState "temp", label:'${currentValue}°', icon:"st.alarm.temperature.normal"
+            tileAttribute ("device.battery", key: "SECONDARY_CONTROL") {
+                attributeState("default", label:'${currentValue}% battery', icon: "https://raw.githubusercontent.com/constjs/jcdevhandlers/master/img/battery-icon-614x460.png")
             }
         }
-        standardTile("refresh", "device.switch", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+        
+        valueTile("temperature", "device.temperature", width: 3, height: 2) {
+			state("temperature", label:'${currentValue}°', unit:"F",
+				backgroundColors:[
+					[value: 31, color: "#153591"],
+					[value: 44, color: "#1e9cbb"],
+					[value: 59, color: "#90d2a7"],
+					[value: 74, color: "#44b621"],
+					[value: 84, color: "#f1d801"],
+					[value: 95, color: "#d04e00"],
+					[value: 96, color: "#bc2323"]
+				]
+			)
+		}
+        
+        standardTile("refresh", "device.switch", inactiveLabel: false, decoration: "flat", width: 3, height: 2) {
 			state "default", label:'Request update', action:"refresh.refresh"
 		}
 
-		standardTile("blankBatt", "statusText", inactiveLabel: false, decoration: "flat", width: 1, height: 1) {
-			state "default", label:'', icon:"https://dl.dropboxusercontent.com/u/19576368/SmartThings/battery.png" }
-		valueTile("battery", "device.battery", inactiveLabel: false, decoration: "flat", width: 5, height: 1) { 
-			state "battery", label:'The Battery level reported at: ${currentValue}%', unit:""
-		}
-
 		main (["main"])
-		details(["main", "blankBatt","battery"])
+		details(["main", "temperature","refresh"])
 	}
 }
 
