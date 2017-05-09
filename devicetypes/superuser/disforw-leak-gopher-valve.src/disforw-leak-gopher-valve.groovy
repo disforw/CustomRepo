@@ -21,6 +21,8 @@ metadata {
 		capability "Polling"
 		capability "Refresh"
 		capability "Sensor"
+        capability "Configuration"
+        capability "Health Check"
 
 		fingerprint deviceId: "0x1006", inClusters: "0x25"
 	}
@@ -83,7 +85,7 @@ def parse(String description) {
 
 def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicReport cmd) {
     def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
-    [name: "contact", value: value, descriptionText: "$device.displayName valve is $value BASIC"]
+    [name: "contact", value: value, descriptionText: "$device.displayName valve is $value"]
 }
 
 def zwaveEvent(physicalgraph.zwave.commands.manufacturerspecificv2.ManufacturerSpecificReport cmd) {   //TODO should show MSR when device is discovered
@@ -102,9 +104,9 @@ def zwaveEvent(physicalgraph.zwave.commands.deviceresetlocallyv1.DeviceResetLoca
 
 def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {
 	def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
-    def timeString = new Date().format("MM-dd-yy h:mm a", location.timeZone)
+    def timeString = new Date().format("MM-dd-yyyy h:mm a", location.timeZone)
     sendEvent(name:"statusText", value:timeString)
-	[name: "contact", value: value, descriptionText: "$device.displayName valve is $value SWITCH"]
+	[name: "contact", value: value, descriptionText: "$device.displayName valve is $value"]
 }
 
 def zwaveEvent(physicalgraph.zwave.Command cmd) {

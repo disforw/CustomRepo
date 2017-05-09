@@ -16,6 +16,10 @@ metadata {
 		capability "Refresh"
 		capability "Contact Sensor"
         capability "Voltage Measurement"
+        capability "Alarm"
+        capability "Health Check"
+        capability "Power"
+        
 
 		attribute "powered", "string"
 		attribute "sensorState", "string"
