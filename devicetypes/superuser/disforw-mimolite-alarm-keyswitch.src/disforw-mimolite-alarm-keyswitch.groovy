@@ -43,7 +43,7 @@ metadata {
 			}
             tileAttribute ("statusText", key: "SECONDARY_CONTROL") {
 				//attributeState "statusText", label:'${currentValue}'
-                attributeState "statusText", label:''
+                attributeState "statusText", label:'${currentValue}'
             }
         }
         standardTile("contact", "device.contact", width: 3, height: 2, inactiveLabel: false) {
@@ -73,7 +73,7 @@ metadata {
             state "val", label:'${currentValue}', unit:"", defaultState: true
         }
         main (["contact"])
-        details(["switch", "blankTile", "statusText", "powered", "refresh", "configure"])
+        details(["switch", "powered", "refresh", "configure"])
 
 	}
 }
@@ -110,7 +110,7 @@ def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cm
 //def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicSet cmd) { sensorValueEvent(cmd.value) }
 def zwaveEvent(physicalgraph.zwave.commands.sensorbinaryv1.SensorBinaryReport cmd) { 
 	//log.debug "SENSOR EVENT with $value"
-    def dstamp = new Date().format( 'yyyy-M-d hh:mm:ss',TimeZone.getTimeZone('EST') )  
+    def dstamp = new Date().format( 'yyyy-M-d hh:mm:ss', location.timeZone ) 
 	sendEvent (name: "statusText", value: "Last Status Change:  ${dstamp}", displayed: false) 
     if (cmd.sensorValue) {
         sendEvent(name: "contact", value: "closed", descriptionText: "$device.displayName Status : ARMED")
