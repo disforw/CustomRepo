@@ -17,7 +17,6 @@ metadata {
 		capability "Contact Sensor"
         capability "Voltage Measurement"
         capability "Alarm"
-        capability "Health Check"
         capability "Power"
         
 
