@@ -52,16 +52,16 @@ metadata {
             }
 		}
         
-        valueTile("contact", "device.contact", inactiveLabel: false, width: 2, height: 2) {
-            state "open", label: 'OPENED', icon: "st.valves.water.open", backgroundColor: "#00A0DC"
-            state "closed", label: 'CLOSED', icon: "st.valves.water.closed", backgroundColor: "#B82121"
+        valueTile("valve", "device.contact", width: 2, height: 2) {
+            state "open", label: 'OPENED', icon: "st.valves.water.open", backgroundColor: "#00A0DC", defaultState: false
+            state "closed", label: 'CLOSED', icon: "st.valves.water.closed", backgroundColor: "#B82121", defaultState: true
         }
 
 		standardTile("refresh", "device.contact", width: 2, height: 2, inactiveLabel: false, decoration: "flat") {
 			state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
 		}
 
-		main "contact"
+		main "valve"
 		details(["valve", "contact","refresh"])
 	}
 
