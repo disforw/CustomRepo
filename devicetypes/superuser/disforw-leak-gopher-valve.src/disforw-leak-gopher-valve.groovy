@@ -40,16 +40,12 @@ metadata {
 	// tile definitions
 	tiles(scale: 2) {
 		multiAttributeTile(name:"valve", type: "generic", width: 6, height: 4, canChangeIcon: true, decoration: "flat"){
-			tileAttribute ("device.contact", key: "PRIMARY_CONTROL") {
+			tileAttribute ("device.valve", key: "PRIMARY_CONTROL") {
 				attributeState "open", label: 'OPENED', action: "close", icon: "st.valves.water.open", backgroundColor: "#00A0DC", nextState:"closing"
 				attributeState "closed", label: 'CLOSED', action: "open", icon: "st.valves.water.closed", backgroundColor: "#B82121", nextState:"opening"
 				attributeState "opening", label: '${name}', icon: "st.valves.water.open", backgroundColor: "#00A0DC"
 				attributeState "closing", label: '${name}', icon: "st.valves.water.closed", backgroundColor: "#B82121"
 			}
-            tileAttribute ("statusText", key: "SECONDARY_CONTROL") {
-				//attributeState "statusText", label:'${currentValue}'
-                attributeState "statusText", label:'${currentValue}'
-            }
 		}
         
         valueTile("contact", "device.contact", width: 2, height: 2) {
@@ -85,7 +81,14 @@ def parse(String description) {
 
 def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicReport cmd) {
     def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
-    [name: "contact", value: value, descriptionText: "$device.displayName valve is $value"]
+    sendEvent(name:"contact", value: value, displayed: true)
+	[name: "valve", value: value, descriptionText: "$device.displayName valve is $value"]
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {
+	def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
+    sendEvent(name:"contact", value: value, displayed: true)
+	[name: "valve", value: value, descriptionText: "$device.displayName valve is $value"]
 }
 
 def zwaveEvent(physicalgraph.zwave.commands.manufacturerspecificv2.ManufacturerSpecificReport cmd) {   //TODO should show MSR when device is discovered
@@ -100,13 +103,6 @@ def zwaveEvent(physicalgraph.zwave.commands.manufacturerspecificv2.ManufacturerS
 
 def zwaveEvent(physicalgraph.zwave.commands.deviceresetlocallyv1.DeviceResetLocallyNotification cmd) {
     [descriptionText: cmd.toString(), isStateChange: true, displayed: true]
-}
-
-def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {
-	def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
-    def timeString = new Date().format("MM-dd-yyyy h:mm a", location.timeZone)
-    sendEvent(name:"statusText", value:timeString)
-	[name: "contact", value: value, descriptionText: "$device.displayName valve is $value"]
 }
 
 def zwaveEvent(physicalgraph.zwave.Command cmd) {
