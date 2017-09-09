@@ -81,14 +81,14 @@ def parse(String description) {
 
 def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicReport cmd) {
     def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
-    sendEvent(name:"contact", value: value, displayed: true)
-	[name: "valve", value: value, descriptionText: "$device.displayName valve is $value"]
+    sendEvent(name:"contact", value: value, displayed: false)
+	sendEvent(name: "valve", value: value, descriptionText: "$device.displayName valve is $value")
 }
 
 def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {
 	def value = cmd.value == 0x00 ?  "open" : cmd.value == 0xFF ? "closed" : "unknown"
-    sendEvent(name:"contact", value: value, displayed: true)
-	[name: "valve", value: value, descriptionText: "$device.displayName valve is $value"]
+    sendEvent(name:"contact", value: value, displayed: false)
+	sendEvent(name: "valve", value: value, descriptionText: "$device.displayName valve is $value")
 }
 
 def zwaveEvent(physicalgraph.zwave.commands.manufacturerspecificv2.ManufacturerSpecificReport cmd) {   //TODO should show MSR when device is discovered
