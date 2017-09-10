@@ -9,7 +9,7 @@
 * ---------------
 * 2017-04-24 Initial Re-Code
 * 2017-04-25 Revearse OPEN CLOSE roles
-* 
+* 2017-09-09 Made a contact for read only from the list view
 * 
 * 
 */
@@ -49,16 +49,16 @@ metadata {
 		}
         
         valueTile("contact", "device.contact", width: 2, height: 2) {
-            state "open", label: 'OPENED', icon: "st.valves.water.open", backgroundColor: "#00A0DC", defaultState: false
-            state "closed", label: 'CLOSED', icon: "st.valves.water.closed", backgroundColor: "#B82121", defaultState: true
+            state "open", label: 'OPENED', icon: "st.valves.water.open", backgroundColor: "#00A0DC"
+            state "closed", label: 'CLOSED', icon: "st.valves.water.closed", backgroundColor: "#B82121"
         }
 
-		standardTile("refresh", "device.contact", width: 2, height: 2, inactiveLabel: false, decoration: "flat") {
+		standardTile("refresh", "refresh", width: 2, height: 2, inactiveLabel: false, decoration: "flat") {
 			state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
 		}
 
 		main "contact"
-		details(["valve", "contact","refresh"])
+		details(["valve","refresh"])
 	}
 
 }
