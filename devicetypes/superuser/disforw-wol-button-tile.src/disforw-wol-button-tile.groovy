@@ -35,8 +35,8 @@ metadata {
         }
         multiAttributeTile(name: "switch", type: "generic", width: 6, height: 4, canChangeIcon: false) {
 			tileAttribute("device.switch", key: "PRIMARY_CONTROL") {
-				attributeState "off", label: 'SCHEDULE OFF', action: "on", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#B82121"
-				attributeState "on", label: 'SCHEDULE ON', action: "off", icon: "st.samsung.da.RC_ic_power"
+				attributeState "off", label: 'SCHEDULE OFF', action: "switch.on", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#B82121"
+				attributeState "on", label: 'SCHEDULE ON', action: "switch.off", icon: "st.samsung.da.RC_ic_power"
 			}
             tileAttribute ("statusText", key: "SECONDARY_CONTROL") {
                 attributeState "default", label:'${currentValue}'
