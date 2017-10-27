@@ -6,6 +6,7 @@
  *
  *
  *  2015-04-01  Initial code copied from impliciter
+ *  2017-10-23  Added macAddress attribute for reference from WebCoRE
  */
 metadata {
 	// Automatically generated. Make future change here.
@@ -14,11 +15,13 @@ metadata {
 		capability "Switch"
 		capability "Sensor"
         capability "Presence Sensor"
+        
+        attribute "macAddress", "string"
 	}
-
-	// simulator metadata
-	simulator {	}
-
+	
+    preferences {
+        input "macAddresss", "macAddress", title: "MAC Address", description: "Enter the MAC address of the device you want to monitor", required: true
+	}
 	// UI tile definitions
 	tiles {
         standardTile("presence", "device.presence", width: 3, height: 3, canChangeBackground: true) {
@@ -26,12 +29,19 @@ metadata {
             state "present", labelIcon:"st.presence.tile.present", backgroundColor:"#53a7c0"
 		}
 
+
 		main(["presence"])
 		details(["presence"])
 	}
 }
 
 def parse(String description) { }
+
+def updated(){
+	//log.debug "The pref has changed to $macAddresss"
+    //def macAddress = "$macAddresss"
+	sendEvent (name: "macAddress", value: "$macAddresss", displayed: false)
+}
 
 def on() {	sendEvent(name: 'presence', value: 'present', descriptionText: "User has Arrived")	}
 def off() {	sendEvent(name: 'presence', value: 'not present', descriptionText: "User has Left")	}
