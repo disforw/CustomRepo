@@ -28,6 +28,10 @@ metadata {
 			state "not present", labelIcon:"st.presence.tile.not-present", backgroundColor:"#ffffff"
             state "present", labelIcon:"st.presence.tile.present", backgroundColor:"#53a7c0"
 		}
+        standardTile("button", "device.switch", width: 2, height: 2, canChangeIcon: false,  canChangeBackground: true) {
+			state "off", label: 'Away', action: "switch.on",  nextState: "on"
+			state "on", label: 'Present', action: "switch.off", nextState: "off"
+		}
 
 
 		main(["presence"])

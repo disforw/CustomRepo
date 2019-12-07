@@ -17,7 +17,7 @@ metadata {
 		capability "Contact Sensor"
         capability "Voltage Measurement"
         capability "Alarm"
-        capability "Power"
+        //capability "Power"
         
 
 		attribute "powered", "string"
@@ -37,7 +37,7 @@ metadata {
 
 	// UI tile definitions
 	tiles (scale: 2) {
-    	multiAttributeTile(name:"switch", type: "lighting", width: 6, height: 4, canChangeIcon: true, decoration: "flat"){
+    	multiAttributeTile(name:"switch", type: "generic", width: 6, height: 4, canChangeIcon: true, decoration: "flat"){
 			tileAttribute ("device.switch", key: "PRIMARY_CONTROL") {
 				attributeState "on", label: "ARMED", action: "on", icon: "st.security.alarm.on", backgroundColor: "#B82121", nextState:"opening"
 				attributeState "off", label: 'DISARMED', action: "on", icon: "st.security.alarm.off", backgroundColor: "#ffffff", nextState:"closing"
