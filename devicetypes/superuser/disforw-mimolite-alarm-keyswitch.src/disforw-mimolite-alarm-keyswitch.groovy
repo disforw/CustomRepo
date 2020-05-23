@@ -13,7 +13,7 @@ metadata {
 	definition (name: "disforw - MIMOlite Alarm Keyswitch", namespace: "", author: "disforw") {
 		capability "Configuration"
 		capability "Switch"
-		capability "Refresh"
+		//capability "Refresh"
 		capability "Contact Sensor"
         capability "Voltage Measurement"
         capability "Alarm"
@@ -76,7 +76,7 @@ metadata {
             state "val", label:'${currentValue}', unit:"", defaultState: true
         }
         main (["contact"])
-        details(["switch", "powered", "refresh", "configure"])
+        details(["switch"])
 
 	}
 }
