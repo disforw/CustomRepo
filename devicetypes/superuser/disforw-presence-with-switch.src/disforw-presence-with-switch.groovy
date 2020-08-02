@@ -9,19 +9,15 @@
  *  2017-10-23  Added macAddress attribute for reference from WebCoRE
  */
 metadata {
-	// Automatically generated. Make future change here.
-	definition (name: "disforw - Presence with Switch", namespace: "", author: "disforw", oauth: false, ocfDeviceType: "x.com.st.d.mobile.presence") {
-	capability "Sensor"
-        capability "Occupancy Sensor"
-        capability "Presence Sensor"
-        capability "Switch"
-
+	definition (name: "Presence Device 2.0", namespace: "disforw", author: "Ben Abrams", cstHandler: true) {
+		capability "Presence Sensor"
+		capability "Switch"
 	}
 	
 
 	// UI tile definitions
 	tiles {
-        standardTile("presence", "device.presence", width: 3, height: 3, canChangeBackground: true) {
+        standardTile("presence", "device.presence", canChangeBackground: true) {
 		state "not present", labelIcon:"st.presence.tile.not-present", backgroundColor:"#ffffff"
         	state "present", labelIcon:"st.presence.tile.present", backgroundColor:"#53a7c0"
 	}
