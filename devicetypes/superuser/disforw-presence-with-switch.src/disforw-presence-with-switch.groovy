@@ -11,7 +11,7 @@
 metadata {
 	// Automatically generated. Make future change here.
 	definition (name: "disforw - Presence with Switch", namespace: "", author: "disforw", oauth: false, ocfDeviceType: "x.com.st.d.mobile.presence") {
-		capability "Sensor"
+	capability "Sensor"
         capability "Occupancy Sensor"
         capability "Presence Sensor"
         capability "Switch"
@@ -22,13 +22,13 @@ metadata {
 	// UI tile definitions
 	tiles {
         standardTile("presence", "device.presence", width: 3, height: 3, canChangeBackground: true) {
-			state "not present", labelIcon:"st.presence.tile.not-present", backgroundColor:"#ffffff"
-            state "present", labelIcon:"st.presence.tile.present", backgroundColor:"#53a7c0"
+		state "not present", labelIcon:"st.presence.tile.not-present", backgroundColor:"#ffffff"
+        	state "present", labelIcon:"st.presence.tile.present", backgroundColor:"#53a7c0"
 	}
-    standardTile("switch", "device.switch", inactiveLabel: false, decoration: "flat") {
-			state "off", action:"switch.on"
-			state "on", action:"switch.off"
-		}
+	standardTile("switch", "device.switch", inactiveLabel: false, decoration: "flat") {
+		state "off", action:"switch.on"
+		state "on", action:"switch.off"
+	}
 
 
 		main(["presence"])
