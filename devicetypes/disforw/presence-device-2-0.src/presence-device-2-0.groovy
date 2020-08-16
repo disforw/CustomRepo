@@ -9,7 +9,7 @@
  *  2020-08-01  Code completely remodified, and simplified code.
  */
 metadata {
-	definition (name: "Presence Device 2.0", namespace: "disforw", author: "Ben Abrams", cstHandler: true) {
+	definition (name: "Presence Device 2.0", namespace: "disforw", author: "Ben Abrams", cstHandler: true, ocfDeviceType: "x.com.st.d.sensor.presence") {
 		capability "Presence Sensor"
 		capability "Switch"
 	}

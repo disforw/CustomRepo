@@ -15,8 +15,8 @@ metadata {
 		capability "Switch"
 		//capability "Refresh"
 		capability "Contact Sensor"
-        capability "Voltage Measurement"
-        capability "Alarm"
+        //capability "Voltage Measurement"
+        //capability "Alarm"
         //capability "Power"
         
 
@@ -117,7 +117,7 @@ def zwaveEvent(physicalgraph.zwave.commands.sensorbinaryv1.SensorBinaryReport cm
 	sendEvent (name: "statusText", value: "Last Status Change:  ${dstamp}", displayed: false) 
     if (cmd.sensorValue) {
         sendEvent(name: "contact", value: "closed", descriptionText: "$device.displayName Status : ARMED")
-        sendEvent(name: "switch", value: "on", displayed: false)
+        sendEvent(name: "switch", value: "off", displayed: false)
 	} else {
         sendEvent(name: "contact", value: "open", descriptionText: "$device.displayName Status : DISARMED")
         sendEvent(name: "switch", value: "off", displayed: false)
